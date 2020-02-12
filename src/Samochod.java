@@ -31,6 +31,12 @@ public class Samochod {
         this.dataPrzegladu = dataPrzegladu;
     }
 
+    public String getMarka(){
+        return marka;
+    }
+    public String gerModel(){
+        return model;
+    }
     public int getPrzebieg() {
         return przebieg;
     }

@@ -21,9 +21,11 @@ public class Baza {
                 Scanner sc1 = new Scanner(System.in);
                 System.out.println("1 - Sprawdz wszystkie auta");
                 System.out.println("2 - Sprawdz wybrane auto");
-                System.out.println("3 - Dodaj date ubezepieczenia");
-                System.out.println("4 - Dodaj date przegladu");
-                System.out.println("5 - zmien stan auta (dostepny/niedostpeny)");
+                System.out.println("3 - Dodaj wybrane auto");
+                System.out.println("4 - Dodaj przebieg auta");
+                System.out.println("5 - Dodaj date ubezepieczenia do danego auta");
+                System.out.println("6 - Dodaj date przegladu do danego auta");
+                System.out.println("7 - zmien stan auta (dostepny/niedostpeny)");
                 String s1 = sc1.next();
                 switch (s1){
                     case "1":
@@ -31,7 +33,17 @@ public class Baza {
                         System.out.println(getListaSamochodow());
                         menuPoczatkowe();
                         case "2":
-
+                            System.out.println("Wpisz szukana Marke");
+                            Scanner sc2 = new Scanner(System.in);
+                            String s2 = sc2.next();
+                            System.out.println("Wpisz szukany Model");
+                            String s3 = sc2.next();
+                            if(getSamochod(s2,s3) == null){
+                                System.out.println("Nie mamy danego auta");
+                            }else{
+                                System.out.println(getSamochod(s2,s3));
+                            }
+                            menuPoczatkowe();
                 }
                 break;
             case "2":
@@ -48,6 +60,13 @@ public class Baza {
     public ArrayList<Samochod> getListaSamochodow() {
         return listaSamochodow;
     }
-
+    public Samochod getSamochod(String marka, String model){
+        for(int i =0; i<listaSamochodow.size(); i++){
+            if (listaSamochodow.get(i).getMarka().equals(marka) && listaSamochodow.get(i).gerModel().equals(model)){
+                return listaSamochodow.get(i);
+            }
+        }
+        return null;
+    }
 
 }
