@@ -1,10 +1,11 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Baza {
 
     private ArrayList<Samochod> listaSamochodow;
-
+    private Samochod samochod;
     public Baza(){
         listaSamochodow = new ArrayList<>();
     }
@@ -29,20 +30,35 @@ public class Baza {
                 String s1 = sc1.next();
                 switch (s1){
                     case "1":
-                        System.out.println("Wszystkie nasze auta: ");
+                        System.out.println("Wszystkie nasze auta:");
                         System.out.println(getListaSamochodow());
                         menuPoczatkowe();
                         case "2":
-                            System.out.println("Wpisz szukana Marke");
-                            Scanner sc2 = new Scanner(System.in);
-                            String s2 = sc2.next();
-                            System.out.println("Wpisz szukany Model");
-                            String s3 = sc2.next();
-                            if(getSamochod(s2,s3) == null){
-                                System.out.println("Nie mamy danego auta");
+                            System.out.println("Wpisz szukana Marke:");
+                            String marka = sc1.next();
+                            System.out.println("Wpisz szukany Model:");
+                            String model = sc1.next();
+                            if(getSamochod(marka,model) == null){
+                                System.out.println("Nie mamy danego auta ! :(");
                             }else{
-                                System.out.println(getSamochod(s2,s3));
+                                System.out.println(getSamochod(marka,model));
                             }
+                            menuPoczatkowe();
+                        case "3":
+                            System.out.println("Wpisz marke ktora chcesz dodac:");
+                            String dodawanaMarka = sc1.next();
+                            System.out.println("Wpisz model, ktory chcesz dodac:");
+                            String dodawanyModel = sc1.next();
+                            System.out.println("Wpisz grupe do ktorej nalezy marka:");
+                            String dodawanaGrupa = sc1.next();
+                            System.out.println("Wpisz wersje dodawanego auta:");
+                            String dodawanaWersja = sc1.next();
+                            System.out.println("Wpisz ilosc koni:");
+                            int iloscKoni = sc.nextInt();
+                            samochod = new Samochod(dodawanaMarka,dodawanyModel,dodawanaGrupa,dodawanaWersja,iloscKoni);
+                            this.dodajSamochod(samochod);
+                            System.out.println("Dodalismy samochod do naszej listy!");
+                            System.out.println(getListaSamochodow());
                             menuPoczatkowe();
                 }
                 break;
