@@ -1,6 +1,8 @@
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Baza {
 
@@ -45,21 +47,56 @@ public class Baza {
                             }
                             menuPoczatkowe();
                         case "3":
-                            System.out.println("Wpisz marke ktora chcesz dodac:");
-                            String dodawanaMarka = sc1.next();
-                            System.out.println("Wpisz model, ktory chcesz dodac:");
-                            String dodawanyModel = sc1.next();
-                            System.out.println("Wpisz grupe do ktorej nalezy marka:");
-                            String dodawanaGrupa = sc1.next();
-                            System.out.println("Wpisz wersje dodawanego auta:");
-                            String dodawanaWersja = sc1.next();
-                            System.out.println("Wpisz ilosc koni:");
-                            int iloscKoni = sc.nextInt();
-                            samochod = new Samochod(dodawanaMarka,dodawanyModel,dodawanaGrupa,dodawanaWersja,iloscKoni);
-                            this.dodajSamochod(samochod);
-                            System.out.println("Dodalismy samochod do naszej listy!");
-                            System.out.println(getListaSamochodow());
-                            menuPoczatkowe();
+                            System.out.println("Wpisz dodawana marke");
+                            String dodawanamarka = sc1.next();
+                           if(sprawdzCzySlowo(dodawanamarka) == true){
+                               System.out.println("Podana marke zakceptowno");
+                               System.out.println("Wpisz dany model:");
+                                String dodawanyModel = sc1.next();
+                                    if(sprawdzModel(dodawanyModel) == true){
+                                        System.out.println("Podany model zaakcetpowano!");
+                                        System.out.println("Wpisz dana grupe:");
+                                            String dodawanaGrupa = sc1.next();
+                                            if(sprawdzCzySlowo(dodawanaGrupa) == true){
+                                                System.out.println("Podana grupa zaakceptowano!");
+                                                System.out.println("Wpisz dana wersje:");
+                                                String dodawanaWersja = sc1.next();
+                                                if (dodawanaWersja != null){
+                                                    System.out.println("Zaakceptowano podawana wersje");
+                                                    System.out.println("Podaj ilosc koni");
+                                                    String dodawnaIloscKoni = sc1.next();
+                                                    if(dodawnaIloscKoni != null){
+                                                        int konie = Integer.parseInt(dodawnaIloscKoni);
+                                                        System.out.println("Zakceptowano ilosc koni");
+                                                        samochod = new Samochod(dodawanamarka,dodawanyModel,dodawanaGrupa,dodawanaWersja,konie);
+                                                        System.out.println("Dodano samochod do bazy");
+                                                        dodajSamochod(samochod);
+                                                        System.out.println(getListaSamochodow());
+                                                        menuPoczatkowe();
+                                                    }else{
+                                                        System.out.println("Dodawana ilosc koni ma błędny format");
+                                                        menuPoczatkowe();
+                                                    }
+                                                }else{
+                                                    System.out.println("Dodawana wersja ma błedny format");
+                                                    menuPoczatkowe();
+                                                }
+                                            }else{
+                                                System.out.println("Dodawna grupa ma błedny format");
+                                                menuPoczatkowe();
+                                            }
+                                    }else{
+                                        System.out.println("Podany model nie został zaakceptowany, model składa się tylko z liter!");
+                                        menuPoczatkowe();
+                                    }
+                           }else{
+                               System.out.println("Podałeś błedną markę, marka składa się tylko z liter!");
+                               menuPoczatkowe();
+                           }
+
+                           // System.out.println("Dodalismy samochod do naszej listy!");
+                            //System.out.println(getListaSamochodow());
+                            //menuPoczatkowe();
                 }
                 break;
             case "2":
@@ -68,6 +105,26 @@ public class Baza {
             case "3":
                 System.out.println("Dziekujemy za skorzystanie z naszej aplikacji, do zobaczenia!");
                 System.exit(0);
+        }
+    }
+    public boolean sprawdzCzySlowo(String str){
+        Pattern p = Pattern.compile("^[A-Z]\\w+$");
+        Matcher m = p.matcher(str);
+        boolean b = m.matches();
+        if(b == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean sprawdzModel(String str){
+        Pattern p = Pattern.compile("\\w+");
+        Matcher m = p.matcher(str);
+        boolean b = m.matches();
+        if(b == true){
+            return true;
+        }else{
+            return false;
         }
     }
     public void dodajSamochod(Samochod samochod){
@@ -84,5 +141,4 @@ public class Baza {
         }
         return null;
     }
-
 }
