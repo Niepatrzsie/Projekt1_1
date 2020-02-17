@@ -97,6 +97,52 @@ public class Baza {
                            // System.out.println("Dodalismy samochod do naszej listy!");
                             //System.out.println(getListaSamochodow());
                             //menuPoczatkowe();
+                    case "4":
+                        System.out.println("Wpisz szukana Marke:");
+                        String markaa = sc1.next();
+                        System.out.println("Wpisz szukany Model:");
+                        String modela = sc1.next();
+                        if(getSamochod(markaa,modela) == null){
+                            System.out.println("Nie mamy danego auta ! :(");
+                            menuPoczatkowe();
+                        }else{
+                            System.out.println("Wpisz przebieg:");
+                            int przebieg = sc1.nextInt();
+                            getSamochod(markaa,modela).setPrzebieg(przebieg);
+                            System.out.println(getSamochod(markaa,modela));
+                            menuPoczatkowe();
+                        }
+                    case "5":
+                        System.out.println("Wpisz szukana Marke:");
+                        String markau = sc1.next();
+                        System.out.println("Wpisz szukany Model:");
+                        String modelu = sc1.next();
+                        if(getSamochod(markau,modelu) == null){
+                            System.out.println("Nie mamy danego auta ! :(");
+                            menuPoczatkowe();
+                        }else{
+                            System.out.println("Wpisz date ubezpieczenia w formacie rr-mm-dd:");
+                            String dataubezpieczenia = sc1.next();
+                            getSamochod(markau,modelu).setDataUbezpieczenia(dataubezpieczenia);
+                            System.out.println(getSamochod(markau,modelu));
+                            menuPoczatkowe();
+                        }
+                    case "6":
+                        System.out.println("Wpisz szukana Marke:");
+                        String szukanaMarka = sc1.next();
+                        System.out.println("Wpisz szukany model");
+                        String szukanyModel = sc1.next();
+                        if(getSamochod(szukanaMarka,szukanyModel) == null){
+                            System.out.println("Nie mamy danego auta ! :(");
+                            menuPoczatkowe();
+                        }else{
+                            System.out.println("Wpisz date przegladu w formacie rr-mm-dd:");
+                            String dataprzegladu = sc1.next();
+                            getSamochod(szukanaMarka,szukanyModel).setDataPrzegladu(dataprzegladu);
+                            System.out.println(getSamochod(szukanaMarka,szukanyModel));
+                            menuPoczatkowe();
+                        }
+
                 }
                 break;
             case "2":
@@ -118,7 +164,7 @@ public class Baza {
         }
     }
     public boolean sprawdzModel(String str){
-        Pattern p = Pattern.compile("\\w+");
+        Pattern p = Pattern.compile(".*");
         Matcher m = p.matcher(str);
         boolean b = m.matches();
         if(b == true){
